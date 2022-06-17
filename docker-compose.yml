@@ -1,0 +1,44 @@
+version: "3.9"
+
+services:
+  proxy:
+    build:
+      context: nginx/
+      dockerfile: Dockerfile
+    container_name: proxy
+    depends_on:
+      - placer
+    networks:
+      - backnet
+    ports:
+      - 80:80
+    restart: on-failure
+  placer:
+    build:
+      context: places_remember/
+      dockerfile: Dockerfile
+    container_name: placer
+    depends_on:
+      - postgres
+    env_file:
+      - places_remember/.env
+    networks:
+      - backnet
+      - postgresql_net
+  postgres:
+    image: postgres:alpine
+    container_name: postgres
+    env_file:
+      - postgresql/.env
+    volumes:
+      - pr_database:/var/lib/postgresql/data
+    networks:
+      - postgresql_net
+    restart: on-failure
+
+networks:
+  postgresql_net:
+  backnet:
+
+volumes:
+  pr_database:

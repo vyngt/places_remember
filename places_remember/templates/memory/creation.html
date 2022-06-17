@@ -1,0 +1,38 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block title %} | Memory Creation{% endblock %}
+
+{% block extra_css %}
+<link rel="stylesheet" type="text/css" href="{% static 'css/map.css' %}" />
+{% endblock %}
+
+{% block extra_script %}
+<script src="https://polyfill.io/v3/polyfill.min.js?features=default"></script>
+<script type="module" src="{% static 'js/map.js' %}"></script>
+{% endblock %}
+
+{% block content %}
+<div class="container">
+  <form method="post">
+    {% csrf_token %}
+    <div class="mb-3">
+      <label class="form-label" for="name">Name</label>
+      <input class="form-control" type="text" id="name" name="name" placeholder="Name" required/>
+    </div>
+    <div class="mb-3">
+      <label  class="form-label" for="comment">Comment</label>
+      <textarea class="form-control" id="comment" name="comment" rows="4" cols="50"></textarea>
+    </div>
+    <div class="mb-3" id="map" style="height: 300px"></div>
+    <input id="in-lat" type="hidden" name="lat" value="" />
+    <input id="in-lng" type="hidden" name="lng" value="" />
+    <button class="btn btn-success" type="submit" id="submit-btn">Submit</button>
+  </form>
+</div>
+
+<script
+  src="https://maps.googleapis.com/maps/api/js?key={{key}}&callback=initMap&v=weekly"
+  defer
+></script>
+{% endblock %}
+

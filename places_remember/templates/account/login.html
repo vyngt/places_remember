@@ -1,0 +1,24 @@
+{% extends 'base.html' %}
+{% load static %}
+{% load socialaccount %}
+{% block title %} | SignIn {% endblock%}
+
+{% block extra_css %}
+<link rel="stylesheet" type="text/css" href="{% static 'css/sign_in.css' %}" />
+<link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"/>
+{% endblock %}
+
+{% block header %}{% endblock  %}
+
+{% block content %}
+
+<div class="text-center form-signin">
+    <h1 class="h3 mb-3 fw-normal">Signin</h1>
+    <button class="w-100 btn btn-lg">
+        <a href="{% provider_login_url "github" %}">with Github <span class="dot"><i class="fa fa-github"></i></span></a>
+    </button>
+    <button class="w-100 btn btn-lg">
+        <a href="{% provider_login_url "facebook" %}">with Facebook <span class="dot"><i class="fa fa-facebook"></i></span></a>
+    </button>
+</div>
+{% endblock %}

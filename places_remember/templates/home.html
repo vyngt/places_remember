@@ -1,0 +1,22 @@
+{% extends 'base.html' %}
+
+{% block content %} 
+{% if user.is_authenticated %} 
+<div class="mx-auto" style="width: 200px">
+    <a class="mb-3 btn btn-success" href="{% url 'memory:creation' %}">ADD A MEMORY</a>
+</div>
+    {% if user.place_set.all %}
+    <div class="container">
+    <ul class="list-group">
+        {% for place in user.place_set.all %}
+        <li class="list-group-item list-group-item-danger">{{place.name}}</li>
+        {% endfor %} 
+    </ul>
+    </div>
+    {% else %}
+    <div class="mx-auto" style="width: 200px">YOU HAVE NO MEMORIES</div>
+    {% endif %} 
+{% else %}
+<div class="mx-auto" style="width: 200px">Welcome to Placer</div>
+{% endif %} 
+{% endblock %}
