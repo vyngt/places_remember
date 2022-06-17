@@ -11,6 +11,8 @@ https://docs.djangoproject.com/en/4.0/ref/settings/
 """
 import os
 from pathlib import Path
+import django_heroku
+
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -153,8 +155,8 @@ LOGIN_REDIRECT_URL = "home"
 SOCIALACCOUNT_PROVIDERS = {
     "github": {
         "APP": {
-            "client_id": os.environ.get("FACEBOOK_ID"),
-            "secret": os.environ.get("FACEBOOK_SECRET"),
+            "client_id": os.environ.get("GITHUB_ID"),
+            "secret": os.environ.get("GITHUB_SECRET"),
             "key": "",
         }
     },
@@ -181,3 +183,7 @@ SOCIALACCOUNT_PROVIDERS = {
 }
 
 GOOGLE_API_KEY = os.environ.get("GOOGLE_API_KEY")
+
+HEROKU = int(os.environ.get("HEROKU", 0))
+if HEROKU:
+    django_heroku.settings(locals())
